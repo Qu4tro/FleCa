@@ -13,12 +13,12 @@ typedef struct node_ll_inline{
 } inline_ll;
 
 
-inline_comment* make_comment(char* str, int line){
+inline_comment* make_comment(char* str, int line);
 
-void append(inline_ll** linked_list, inline_comment* c){
+void append(inline_ll** linked_list, inline_comment* c);
 
-inline_comment* pop(inline_ll** linked_list){
+inline_comment* pop(inline_ll** linked_list);
 
 
-void print_comment(inline_comment* c){
+void print_comment(inline_comment* c);
 

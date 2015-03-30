@@ -1,17 +1,4 @@
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct {
-       char *string;
-       int line;
-} inline_comment;
-
-typedef struct node_ll_inline{
-   struct node_ll_inline *next;     
-   inline_comment    comment;
-} inline_ll;
-
+#include "struts.h"
 
 inline_comment* make_comment(char* str, int line){
 
