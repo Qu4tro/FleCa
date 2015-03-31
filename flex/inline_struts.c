@@ -18,7 +18,7 @@ void append_inline(inline_ll** linked_list, inline_comment* c){
         (*linked_list) -> next = NULL;
 
     } else {
-        append(&((*linked_list) -> next), c);
+        append_inline(&((*linked_list) -> next), c);
     }
 }
 
@@ -46,7 +46,7 @@ void print_comment(inline_ll* linked_list){
 
     inline_comment* c;
 
-    while ((c = pop(&linked_list)) != NULL){
+    while ((c = pop_inline(&linked_list)) != NULL){
         printf("Linha %d\n%s\n\n", c -> line, c -> string);
     }
 }
