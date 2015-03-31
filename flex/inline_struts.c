@@ -1,6 +1,6 @@
-#include "struts.h"
+#include "inline_struts.h"
 
-inline_comment* make_comment(char* str, int line){
+inline_comment* make_inline_comment(char* str, int line){
 
     inline_comment* comment = malloc(sizeof(inline_comment));
 

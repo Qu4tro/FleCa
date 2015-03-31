@@ -215,7 +215,7 @@ void print_documenting_comments_per_version_chapter(){
 
 
 
-void print_body(inline_ll* linked_list, int n_of_inlines){
+void print_body(inline_ll* linked_list, int n_of_inlines, int n_of_blocks, int n_of_docs){
     
     printf(""
     "\t<body>\n"
@@ -232,7 +232,7 @@ void print_body(inline_ll* linked_list, int n_of_inlines){
 
         "\t\t<div id=\"content\">\n");
 
-    print_home(n_of_inlines, 0, 0);
+    print_home(n_of_inlines, n_of_blocks, n_of_docs);
     print_inline_comments_chapter(linked_list);
     print_block_comments_chapter();
     print_documenting_comments_chapter();
@@ -253,12 +253,12 @@ void print_body(inline_ll* linked_list, int n_of_inlines){
 
 }
 
-void print_html(inline_ll* linked_list, int n_of_inlines){
+void print_html(inline_ll* linked_list, int n_of_inlines, int n_of_blocks, int n_of_docs){
 
     printf("<!DOCTYPE html>\n"
            "<html lang=\"pt\">\n\n");
 
     print_head();
-    print_body(linked_list, n_of_inlines);
+    print_body(linked_list, n_of_inlines, n_of_blocks, n_of_docs);
 
 }
