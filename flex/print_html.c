@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "print_html.h"
 
 void print_head(){
 
@@ -7,7 +7,7 @@ void print_head(){
         "\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n"
         "\t\t<meta charset=\"UTF-8\">\n"
         "\t\t<title>FleCa - Flex Comment Analyser</title>\n"
-        "\t\t<meta name=\"Author\" content=\"Célia Natália e Xavier Francisco\">\n"
+        "\t\t<meta name=\"Author\" content=\"Célia Natália, Tiago Cunha e Xavier Francisco\">\n"
         "\t\t<meta name=\"Description\" content=\"FleCa é um analisador de comentários tipo-Java feita por um filtro de texto Flex.\">\n"
         "\t\t<meta name=\"Keywords\" content=\"fleca, analisador, comentaários, linux, unix\">\n"
         "\t\t<meta name=\"viewport\" content=\"initial-scale=1\">\n"
@@ -65,30 +65,33 @@ void print_head(){
 
 
 
-void print_home(){
+void print_home(int n_of_inlines, int n_of_blocks, int n_of_docs){
 
     printf(""
             "\t\t\t<h2 id=\"home\" style=\"display: block;\"></h2>\n"
             "\t\t\t<div class=\"chapter\" style=\"display: block;\">\n"
                 "\t\t\t\t<div class=\"tagline\">FleCa é um analisador de comentários tipo-Java feita por um filtro de texto <em>Flex</em>.</div>\n"
                 "\t\t\t\t<img class=\"screenshot\" alt=\"java screenshot\" title=\"java source example\" src=\"https://imgur.com/78e9F0t.png\">\n"
-                "\t\t\t\t<div class=\"tagline\">O ficheiro <em>exemplo.java</em> foi analisado. Foram encontrados x comentários inline, y comentários em bloco e z comentários de documentação.</div>\n"
-            "\t\t\t</div>\n");
+                "\t\t\t\t<div class=\"tagline\">O ficheiro foi analisado e foram encontrados %d comentários inline, %d comentários em bloco e %d comentários de documentação.</div>\n"
+            "\t\t\t</div>\n", n_of_inlines, n_of_blocks, n_of_docs);
 }
 
-void print_inline_comments_chapter(){
+void print_inline_comments_chapter(inline_ll* linked_list){
 
     int i;
     int count = 1;
+    inline_comment* c;
 
     printf(""
             "\t\t\t<h2 id=\"inline\" style=\"display: none;\">Comentários Inline</h2>\n"
             "\t\t\t<div class=\"chapter\" style=\"display: none;\">\n");
 
-    for(i = 0; i < count; ++i){
 
-        printf("\t\t\t\t<br>Linha 12:<br>\n"
-               "\t\t\t\t<code>Olá. Isto é um comentário de exemplo :D</code><br>\n");
+    while ((c = pop(&linked_list)) != NULL){
+
+        printf("\t\t\t\t<br>Linha %d:<br>\n"
+               "\t\t\t\t<code>%s</code><br>\n", c -> line, 
+                                                c -> string);
     }
 
     printf("\t\t\t</div>\n");
@@ -212,7 +215,7 @@ void print_documenting_comments_per_version_chapter(){
 
 
 
-void print_body(){
+void print_body(inline_ll* linked_list, int n_of_inlines){
     
     printf(""
     "\t<body>\n"
@@ -229,8 +232,8 @@ void print_body(){
 
         "\t\t<div id=\"content\">\n");
 
-    print_home();
-    print_inline_comments_chapter();
+    print_home(n_of_inlines, 0, 0);
+    print_inline_comments_chapter(linked_list);
     print_block_comments_chapter();
     print_documenting_comments_chapter();
     print_documenting_comments_per_author_chapter();
@@ -250,21 +253,12 @@ void print_body(){
 
 }
 
-void print_html(){
+void print_html(inline_ll* linked_list, int n_of_inlines){
 
     printf("<!DOCTYPE html>\n"
            "<html lang=\"pt\">\n\n");
 
     print_head();
-    print_body();
-
-}
-
-
-int main(){
-
-    print_html();
-
-    return 1;
+    print_body(linked_list, n_of_inlines);
 
 }

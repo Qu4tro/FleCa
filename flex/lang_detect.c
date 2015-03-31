@@ -32,10 +32,10 @@ char* detect_lang(char* s){
      * Portuguese: https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/Portuguese_wordlist
      */
     int i;
-    char languages[][] = {"?", "Português", "Inglês"};
+    char *languages[] = {"?", "Português", "Inglês"};
 
-    char english[][] = {"the", "be", "to", "of", "and", "for", "in", "that", "have", "I", "it"};
-    char portuguese[][] = {"que", "não", "de", "um", "para", "se", "uma", "está", "com", "do", "por", "o", "é"};
+    char *english[] = {"the", "be", "to", "of", "and", "for", "in", "that", "have", "I", "it"};
+    char *portuguese[] = {"que", "não", "de", "um", "para", "se", "uma", "está", "com", "do", "por", "o", "é"};
     int count_english_matches = 0;
     int count_portuguese_matches = 0;
 

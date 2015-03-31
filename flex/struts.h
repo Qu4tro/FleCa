@@ -19,6 +19,3 @@ void append(inline_ll** linked_list, inline_comment* c);
 
 inline_comment* pop(inline_ll** linked_list);
 
-
-void print_comment(inline_comment* c);
-

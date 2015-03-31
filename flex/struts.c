@@ -42,10 +42,16 @@ inline_comment* pop(inline_ll** linked_list){
 }
 
 
-void print_comment(inline_comment* c){
-    printf("Linha %d\n%s\n\n", c -> line, c -> string);
+void print_comment(inline_ll* linked_list){
+
+    inline_comment* c;
+
+    while ((c = pop(&linked_list)) != NULL){
+        printf("Linha %d\n%s\n\n", c -> line, c -> string);
+    }
 }
 
+/*
 int main(){
 
     char s1[] = "A Célia vai faltar à aula de POO";
@@ -54,8 +60,6 @@ int main(){
     char s4[] = "A Célia vai faltar à aula de SO";
     char s5[] = "A Célia vai faltar à aula de MEIO";
     char s6[] = "A Célia vai faltar à aula de PL";
-
-    inline_comment* c;
 
     inline_comment* c1 = make_comment(s1, 10);
     inline_comment* c2 = make_comment(s2, 12);
@@ -73,10 +77,7 @@ int main(){
     append(&linked_list, c5);
     append(&linked_list, c6);
 
-    while ((c = pop(&linked_list)) != NULL){
-        print_comment(c);
-    }
+    print_comment(linked_list);
 
     return 0;
-
-}
+} */
