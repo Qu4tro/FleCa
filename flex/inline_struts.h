@@ -15,7 +15,7 @@ typedef struct node_ll_inline{
 
 inline_comment* make_inline_comment(char* str, int line);
 
-void append(inline_ll** linked_list, inline_comment* c);
+void append_inline(inline_ll** linked_list, inline_comment* c);
 
-inline_comment* pop(inline_ll** linked_list);
+inline_comment* pop_inline(inline_ll** linked_list);
 

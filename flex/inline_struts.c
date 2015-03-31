@@ -10,7 +10,7 @@ inline_comment* make_inline_comment(char* str, int line){
     return comment;
 }
 
-void append(inline_ll** linked_list, inline_comment* c){
+void append_inline(inline_ll** linked_list, inline_comment* c){
 
     if (*linked_list == NULL){
         (*linked_list) = malloc(sizeof(inline_ll));
@@ -22,7 +22,7 @@ void append(inline_ll** linked_list, inline_comment* c){
     }
 }
 
-inline_comment* pop(inline_ll** linked_list){
+inline_comment* pop_inline(inline_ll** linked_list){
 
     inline_comment *c;
     inline_ll* next_comment;

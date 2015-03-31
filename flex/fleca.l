@@ -61,7 +61,7 @@ unsigned int n_of_docs = 0;
  */
 
 ^.*"//".*$              {comment = make_inline_comment(yytext, yylineno);
-                         append(&inline_linked_list, comment);
+                         append_inline(&inline_linked_list, comment);
                          n_of_inlines++;
                         }
 

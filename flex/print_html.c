@@ -87,7 +87,7 @@ void print_inline_comments_chapter(inline_ll* linked_list){
             "\t\t\t<div class=\"chapter\" style=\"display: none;\">\n");
 
 
-    while ((c = pop(&linked_list)) != NULL){
+    while ((c = pop_inline(&linked_list)) != NULL){
 
         printf("\t\t\t\t<br>Linha %d:<br>\n"
                "\t\t\t\t<code>%s</code><br>\n", c -> line, 
