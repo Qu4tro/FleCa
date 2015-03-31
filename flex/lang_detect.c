@@ -1,45 +1,34 @@
 #include <stdio.h>
 
-int starts_with_word(char *s, char *word){
+int starts_with_word(char s[], char word[]){
 
-    while (*word) {
-        if (*word != *s)
+    int i = 0;
+
+    while (word[i]) {
+        if (word[i] != s[i])
             return 0;
-        word++; 
-        s++;
+        i++;
     }
 
-    return 1;
+    return i;
 }
 
-int next_word(char *word){
 
-    int size = 0;
-
-    while ((*(word + size) != ' ') && *word)
-        size++;
-
-    while (!((*(word + size) >= 'A' && *(word + size) <= 'Z') || (*(word + size) >= 'a' && *(word + size) <= 'z')) && (*word))
-        size++;
-
-    return size;
-
-}
-
-char* detect_lang(char* s){
+char* detect_lang(char s[]){
 
     /* English: https://en.wikipedia.org/wiki/Most_common_words_in_English
      * Portuguese: https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/Portuguese_wordlist
      */
-    int i;
-    char languages[][] = {"?", "Português", "Inglês"};
+    int i, j = 0;
+    char **languages = {"?", "Português", "Inglês"};
 
-    char english[][] = {"the", "be", "to", "of", "and", "for", "in", "that", "have", "I", "it"};
-    char portuguese[][] = {"que", "não", "de", "um", "para", "se", "uma", "está", "com", "do", "por", "o", "é"};
+    char **english= {"the", "be", "to", "of", "and", "for", "in", "that", "have", "I", "it"};
+    char **portuguese = {"que", "não", "de", "um", "para", "se", "uma", "está", "com", "do", "por", "o", "é"};
     int count_english_matches = 0;
     int count_portuguese_matches = 0;
 
-    while (*s){
+    while (s[j]){
+
 
         for (i = 0; i < 12; ++i){
             if (starts_with_word(s, english[i]))
@@ -50,17 +39,24 @@ char* detect_lang(char* s){
                 count_portuguese_matches++;
         }
 
-        s += next_word(s);
+        j++;
     }
 
+    if (count_portuguese_matches == 0 && count_english_matches == 0)
+        return languages[0];
 
-    return languages[0];
+    if (count_english_matches > count_portuguese_matches)
+        return languages[2];
+    else 
+        return languages[1];
+
 }
 
 int main(){
 
-    char s[] = "Olá. está tudo bem?";
-    printf("%s\n", detect_lang(s));
+    char s1[] = "Olá. está tudo bem?";
+    char s2[] = "Olá. está tudo bem?";
+    printf("%d\n", starts_with_word(s1,s2));
 
     return 1;
 
