@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int starts_with_word(char s[], char word[]){
+int starts_with_word(char s[], const char word[]){
 
     int i = 0;
 
@@ -14,28 +14,28 @@ int starts_with_word(char s[], char word[]){
 }
 
 
-char* detect_lang(char s[]){
+const char* detect_lang(char* s){
 
     /* English: https://en.wikipedia.org/wiki/Most_common_words_in_English
      * Portuguese: https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/Portuguese_wordlist
      */
     int i, j = 0;
-    char languages[][] = {"?", "Português", "Inglês"};
+    const char *languages[] = {"?", "Português", "Inglês"};
 
-    char **english = {"the", "be", "to", "of", "and", "for", "in", "that", "have", "I", "it"};
-    char **portuguese = {"que", "não", "de", "um", "para", "se", "uma", "está", "com", "do", "por", "o", "é"};
+    const char *english[] = {"the", "be", "to", "of", "and", "for", "in", "that", "have", "I", "it", "not", "on"};
+    const char *portuguese[] = {"que", "não", "de", "um", "para", "se", "uma", "está", "com", "do", "por", "o", "é"};
     int count_english_matches = 0;
     int count_portuguese_matches = 0;
 
-    while (s[j]){
+    while (*(s + j)){
 
 
-        for (i = 0; i < 12; ++i){
-            if (starts_with_word(s, english[i]))
+        for (i = 0; i < 14; ++i){
+            if (starts_with_word(s + j, english[i]))
                 count_english_matches++;
         }
         for (i = 0; i < 14; ++i){
-            if (starts_with_word(s, portuguese[i]))
+            if (starts_with_word(s + j, portuguese[i]))
                 count_portuguese_matches++;
         }
 
@@ -55,8 +55,7 @@ char* detect_lang(char s[]){
 int main(){
 
     char s1[] = "Olá. está tudo bem?";
-    char s2[] = "Olá. está tudo bem?";
-    printf("%d\n", starts_with_word(s1,s2));
+    printf("%s\n", detect_lang(s1));
 
     return 1;
 
