@@ -27,15 +27,15 @@ const char* detect_lang(char* s){
     int count_english_matches = 0;
     int count_portuguese_matches = 0;
 
-    while (*(s + j)){
+    while (s[j]){
 
 
         for (i = 0; i < 14; ++i){
-            if (starts_with_word(s + j, english[i]))
+            if (starts_with_word(&s[j], english[i]))
                 count_english_matches++;
         }
         for (i = 0; i < 14; ++i){
-            if (starts_with_word(s + j, portuguese[i]))
+            if (starts_with_word(&s[j], portuguese[i]))
                 count_portuguese_matches++;
         }
 
