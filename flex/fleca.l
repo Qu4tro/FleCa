@@ -112,7 +112,9 @@ int yywrap(){
 int main(){ 
     
     yylex();
-    /* print_html(inline_linked_list, n_of_inlines, blocks_linked_list, n_of_blocks, n_of_docs); */
+    
+    docs_linked_list = NULL;
+    print_html(inline_linked_list, n_of_inlines, blocks_linked_list, n_of_blocks, docs_linked_list, n_of_docs);
 
     return 0;
 }
