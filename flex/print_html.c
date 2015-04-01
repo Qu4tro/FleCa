@@ -76,7 +76,7 @@ void print_home(int n_of_inlines, int n_of_blocks, int n_of_docs){
             "\t\t\t</div>\n", n_of_inlines, n_of_blocks, n_of_docs);
 }
 
-void print_inline_comments_chapter(inline_ll* linked_list){
+void print_inline_comments_chapter(inline_ll* inline_linked_list){
 
     int i;
     int count = 1;
@@ -87,7 +87,7 @@ void print_inline_comments_chapter(inline_ll* linked_list){
             "\t\t\t<div class=\"chapter\" style=\"display: none;\">\n");
 
 
-    while ((c = pop_inline(&linked_list)) != NULL){
+    while ((c = pop_inline(&inline_linked_list)) != NULL){
 
         printf("\t\t\t\t<br>Linha %d:<br>\n"
                "\t\t\t\t<code>%s</code><br>\n", c -> line, 
@@ -98,28 +98,28 @@ void print_inline_comments_chapter(inline_ll* linked_list){
 
 }
 
-void print_block_comments_chapter(){
+void print_block_comments_chapter(blocks_ll* blocks_linked_list){
+
+    block_comment* c;
+    const char *languages[] = {"?", "Inglês", "Português"};
 
     printf(""
             "\t\t\t<h2 id=\"bloco\" style=\"display: none;\">Comentários em Bloco</h2>\n"
-            "\t\t\t<div class=\"chapter\" style=\"display: none;\">\n"
-                "\t\t\t\t<br>Linha 1-4 : Comentário em <em>Inglês</em><br>\n"
+            "\t\t\t<div class=\"chapter\" style=\"display: none;\">\n");
+
+    while ((c = pop_block(&blocks_linked_list)) != NULL){
+
+        printf(""
+                "\t\t\t\t<br>Linha %d-%d : Comentário em <em>%s</em><br>\n"
                 "\t\t\t\t<code>\n"
-                    "This program is called  <br>\n"
-                    "FLex<br>\n"
-                    "Comment<br>\n"
-                    "Analyzer <br>\n"
-                "\t\t\t\t</code>\n"
+                "%s"
+                "\t\t\t\t</code>\n", c -> initial_line,
+                                     c -> final_line,
+                                     languages[c -> language],
+                                     c -> string);
+    }
 
-                "\t\t\t\t<br>Linha 118-120 : Comentário em <em>Português</em><br>\n"
-
-                "\t\t\t\t<code>\n"
-                    "Comentários de bloco  <br>\n"
-                    "que permitem abranger várias linhas e <br>\n"
-                    "que começam em \"/*\" e vão até \"*/\"<br>\n"
-                "\t\t\t\t</code>\n"
-
-            "\t\t\t</div>\n");
+    printf("\t\t\t</div>\n");
 
 }
 
@@ -179,7 +179,7 @@ void print_documenting_comments_per_author_chapter(){
 void print_documenting_comments_per_version_chapter(){
 
     printf(""
-            "\t\t\t<h2 id=\"docs_author\" style=\"display: none;\">Comentários de Documentação - Por versão.</h2>\n"
+            "\t\t\t<h2 id=\"docs_version\" style=\"display: none;\">Comentários de Documentação - Por versão.</h2>\n"
             "\t\t\t<div class=\"chapter\" style=\"display: none;\">\n"
 
                 "\t\t\t\t<br>\n"
@@ -214,9 +214,9 @@ void print_documenting_comments_per_version_chapter(){
 }
 
 
-
-void print_body(inline_ll* linked_list, int n_of_inlines, int n_of_blocks, int n_of_docs){
-    
+void print_body(inline_ll* inline_linked_list, int n_of_inlines, 
+                blocks_ll* blocks_linked_list, int n_of_blocks, 
+                int n_of_docs){
     printf(""
     "\t<body>\n"
         "\t\t<center>\n"
@@ -233,8 +233,10 @@ void print_body(inline_ll* linked_list, int n_of_inlines, int n_of_blocks, int n
         "\t\t<div id=\"content\">\n");
 
     print_home(n_of_inlines, n_of_blocks, n_of_docs);
-    print_inline_comments_chapter(linked_list);
-    print_block_comments_chapter();
+
+    print_inline_comments_chapter(inline_linked_list);
+
+    print_block_comments_chapter(blocks_linked_list);
     print_documenting_comments_chapter();
     print_documenting_comments_per_author_chapter();
     print_documenting_comments_per_version_chapter();
@@ -253,12 +255,16 @@ void print_body(inline_ll* linked_list, int n_of_inlines, int n_of_blocks, int n
 
 }
 
-void print_html(inline_ll* linked_list, int n_of_inlines, int n_of_blocks, int n_of_docs){
+void print_html(inline_ll* inline_linked_list, int n_of_inlines, 
+                blocks_ll* blocks_linked_list, int n_of_blocks, 
+                int n_of_docs){
 
     printf("<!DOCTYPE html>\n"
            "<html lang=\"pt\">\n\n");
 
     print_head();
-    print_body(linked_list, n_of_inlines, n_of_blocks, n_of_docs);
+    print_body(inline_linked_list, n_of_inlines, 
+               blocks_linked_list, n_of_blocks,
+                                   n_of_docs);
 
 }

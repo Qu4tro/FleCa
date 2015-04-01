@@ -3,14 +3,19 @@
 %{
 #include <stdio.h>
 #include "inline_struts.h"
+#include "blocks_struts.h"
+#include "utils.h"
 
 inline_ll* inline_linked_list = NULL;
-inline_comment* comment;
+inline_comment* icomment;
+
+blocks_ll* blocks_linked_list = NULL;
+block_comment* bcomment;
+char* current;
 
 unsigned int n_of_inlines = 0;
 unsigned int n_of_blocks = 0;
 unsigned int n_of_docs = 0;
-
 
 %}
 
@@ -23,50 +28,59 @@ unsigned int n_of_docs = 0;
     We want to ignore all strings, so there's no false comments(for example the following string: "/* //")
     */
 
-[^\\]\"             { BEGIN(str);} /* printf("<string>%s", yytext + 1);} */
+[^\\]\"                    { BEGIN(str);} 
 
-<str>\"             { BEGIN(INITIAL);} /* printf("%s</string>\n", yytext);} */
+<str>\"                    { BEGIN(INITIAL);} 
 
-<str>\n             { BEGIN(INITIAL);} 
+<str>\n                    { BEGIN(INITIAL);} 
 
-<str>[^\n\"]+       {;} /*{ printf("%s", yytext);} */
+<str>[^\n\"]+              { ;} 
 
 
   /* First regex to match comments. In this case documentating comments. */
 
-\/[\*]{2,}             { BEGIN(docs); n_of_docs++;}
+\/[\*]{2,}                 { BEGIN(docs); n_of_docs++;}
 
-<docs>\*\/             { BEGIN(INITIAL);}
+<docs>\*\/                 { BEGIN(INITIAL);}
 
-<docs>[^\*]*           {;}
+ /* <docs>@author\ .*$     { BEGIN(INITIAL);} */
 
-
-\/\*                   { BEGIN(block); n_of_blocks++;}
-
-<block>\*\/             { BEGIN(INITIAL);}
-
-<block>[^\*]*           {;}
+<docs>[^\*]*               { ;}
 
 
+\/\*                       { BEGIN(block); 
+                             n_of_blocks++; 
+                             bcomment = malloc(sizeof(block_comment));
+                             bcomment -> initial_line = yylineno;
+                             current = NULL;
+                           }
 
- /* Next block comments
+<block>\*\/                { BEGIN(INITIAL);
+                             bcomment -> final_line = yylineno;
+                             bcomment -> string = strdup(current);
+                             bcomment -> language = detect_lang(bcomment -> string);
+                             append_block(&blocks_linked_list, bcomment);
+                             free(bcomment);
+                           }
 
-\/\*[^\*]*\*\/                   {printf("Block comments:\n%s\n", yytext);}
+<block>\*[^\/]             { ;}
 
+<block>[^\*]*              { current = str_append(current, yytext);}
+
+
+
+ /* 
+     Next inline comments
  */
 
- /* Next inline comments
-
-^.*"//".*$              {printf("Inline comments (Line %d):\n%s\n", yylineno, yytext);}
- */
-
-^.*"//".*$              {comment = make_inline_comment(yytext, yylineno);
-                         append_inline(&inline_linked_list, comment);
-                         n_of_inlines++;
-                        }
+^.*"//".*$                 { icomment = make_inline_comment(yytext, yylineno);
+                            append_inline(&inline_linked_list, icomment);
+                            free(icomment);
+                            n_of_inlines++;
+                           }
 
 
-.|\n                        {;}
+.|\n                       {;}
 
 %%
 
@@ -77,10 +91,8 @@ int yywrap(){
 
 int main(){ 
     
-  //test 1 2 3
     yylex();
-    print_html(inline_linked_list, n_of_inlines, n_of_blocks, n_of_docs);
-
+    print_html(inline_linked_list, n_of_inlines, blocks_linked_list, n_of_blocks, n_of_docs);
 
     return 0;
 }
