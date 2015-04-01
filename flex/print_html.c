@@ -139,84 +139,62 @@ void print_documenting_comments_chapter(){
 
 }
 
-void print_documenting_comments_per_author_chapter(){
+void print_documenting_comments_per_author_chapter(docs_ll* docs_linked_list){
+
 
     printf(""
             "\t\t\t<h2 id=\"docs_author\" style=\"display: none;\">Comentários de Documentação - Por autor</h2>\n"
             "\t\t\t<div class=\"chapter\" style=\"display: none;\">\n"
 
-                "\t\t\t\t<br>\n"
+                "\t\t\t\t<br>\n"); 
 
-                "\t\t\t\tPor XavierFrancisco.\n"
+    while (0){
+        docs_comment *c;
+        docs_ll* ll = sort_by_authors(docs_linked_list);
 
-                "\t\t\t\t<code>\n"
+        while ((c = pop_docs(&ll)) != NULL){
 
-                    "/**  <br>\n"
-                     "*   @author XavierFrancisco <br>\n"
-                     "*   @param x value of x <br>\n"
-                     "*   @return y <br>\n"
-                     "*   @see \"Math\" <br>\n"
-                     "*   @version version1 <br>\n"
-                     "*/ <br>\n"
-                "\t\t\t\t</code>\n\n"
+            printf("\t\t\t\tPor %s.\n"
+                   "\t\t\t\t<code>\n"
+                   "%s"
+                   "\t\t\t\t</code>\n\n", c -> author, 
+                                          c -> string);
+        }
+    }
 
-                "\t\t\t\tPor CéliaNatália.\n"
-                "\t\t\t\t<code>\n"
-
-                    "/**  <br>\n"
-                     "*   @author CéliaNatália <br>\n"
-                     "*   @param y value of y <br>\n"
-                     "*   @return x <br>\n"
-                     "*   @see \"Math\" <br>\n"
-                     "*   @version version2 <br>\n"
-                     "*/ <br>\n"
-                "\t\t\t</code>\n\n"
-
-           "\t\t\t</div>");
+    printf("\t\t\t</div>");
 
 }
 
-void print_documenting_comments_per_version_chapter(){
+void print_documenting_comments_per_version_chapter(docs_ll* docs_linked_list){
 
     printf(""
-            "\t\t\t<h2 id=\"docs_version\" style=\"display: none;\">Comentários de Documentação - Por versão.</h2>\n"
+            "\t\t\t<h2 id=\"docs_version\" style=\"display: none;\">Comentários de Documentação - Por versão</h2>\n"
             "\t\t\t<div class=\"chapter\" style=\"display: none;\">\n"
 
-                "\t\t\t\t<br>\n"
+                "\t\t\t\t<br>\n"); 
 
-                "\t\t\t\tVersão 1.\n"
+    while (0){
+        docs_comment *c;
+        docs_ll* ll = sort_by_version(docs_linked_list);
 
-                "\t\t\t\t<code>\n"
+        while ((c = pop_docs(&ll)) != NULL){
 
-                    "/**  <br>\n"
-                     "*   @author XavierFrancisco <br>\n"
-                     "*   @param x value of x <br>\n"
-                     "*   @return y <br>\n"
-                     "*   @see \"Math\" <br>\n"
-                     "*   @version version1 <br>\n"
-                     "*/ <br>\n"
-                "\t\t\t\t</code>\n\n"
+            printf("\t\t\t\tVersão %s.\n"
+                   "\t\t\t\t<code>\n"
+                   "%s"
+                   "\t\t\t\t</code>\n\n", c -> version, 
+                                          c -> string);
+        }
+    }
 
-                "\t\t\t\tVersão 2.\n"
-                "\t\t\t\t<code>\n"
-
-                    "/**  <br>\n"
-                     "*   @author CéliaNatália <br>\n"
-                     "*   @param y value of y <br>\n"
-                     "*   @return x <br>\n"
-                     "*   @see \"Math\" <br>\n"
-                     "*   @version version2 <br>\n"
-                     "*/ <br>\n"
-                "\t\t\t</code>\n\n"
-
-           "\t\t\t</div>");
-
+    printf("\t\t\t</div>");
 }
-
 
 void print_body(inline_ll* inline_linked_list, int n_of_inlines, 
                 blocks_ll* blocks_linked_list, int n_of_blocks, 
-                int n_of_docs){
+                  docs_ll*   docs_linked_list, int n_of_docs){
+
     printf(""
     "\t<body>\n"
         "\t\t<center>\n"
@@ -238,8 +216,8 @@ void print_body(inline_ll* inline_linked_list, int n_of_inlines,
 
     print_block_comments_chapter(blocks_linked_list);
     print_documenting_comments_chapter();
-    print_documenting_comments_per_author_chapter();
-    print_documenting_comments_per_version_chapter();
+    print_documenting_comments_per_author_chapter(docs_linked_list);
+    print_documenting_comments_per_version_chapter(docs_linked_list);
 
     printf(""
         "\t\t</div>\n\n"
@@ -257,7 +235,7 @@ void print_body(inline_ll* inline_linked_list, int n_of_inlines,
 
 void print_html(inline_ll* inline_linked_list, int n_of_inlines, 
                 blocks_ll* blocks_linked_list, int n_of_blocks, 
-                int n_of_docs){
+                  docs_ll*   docs_linked_list, int n_of_docs){
 
     printf("<!DOCTYPE html>\n"
            "<html lang=\"pt\">\n\n");
@@ -265,6 +243,6 @@ void print_html(inline_ll* inline_linked_list, int n_of_inlines,
     print_head();
     print_body(inline_linked_list, n_of_inlines, 
                blocks_linked_list, n_of_blocks,
-                                   n_of_docs);
+                 docs_linked_list, n_of_docs);
 
 }

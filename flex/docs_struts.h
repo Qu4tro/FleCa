@@ -24,3 +24,5 @@ docs_comment* pop_docs(docs_ll** linked_list);
 docs_ll* sort_by_authors(docs_ll* linked_list);
 
 docs_ll* sort_by_version(docs_ll* linked_list);
+
+int cmp_by_authors(docs_comment* c1, docs_comment* c2);

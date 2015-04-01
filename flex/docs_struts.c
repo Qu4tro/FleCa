@@ -99,7 +99,7 @@ void insert_by_version(docs_ll** linked_list, docs_comment* c){
     }
 }
 
-docs_ll* sort_version (docs_ll* linked_list){
+docs_ll* sort_by_version (docs_ll* linked_list){
 
     docs_ll* temp_ll;
     docs_comment* c;
