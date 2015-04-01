@@ -43,7 +43,7 @@ unsigned int n_of_docs = 0;
 
 <docs>\*\/                 { BEGIN(INITIAL);}
 
- /* <docs>@author\ .*$     { BEGIN(INITIAL);} */
+ /* <docs>@author\ .*$        { BEGIN(INITIAL);} */
 
 <docs>[^\*]*               { ;}
 
@@ -74,9 +74,9 @@ unsigned int n_of_docs = 0;
  */
 
 ^.*"//".*$                 { icomment = make_inline_comment(yytext, yylineno);
-                            append_inline(&inline_linked_list, icomment);
-                            free(icomment);
-                            n_of_inlines++;
+                             append_inline(&inline_linked_list, icomment);
+                             free(icomment);
+                             n_of_inlines++;
                            }
 
 

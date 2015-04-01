@@ -67,7 +67,8 @@ Se o "o" for null também é diferente, porque tudo é diferente de null em Java
         }
 
         public int hashCode(){
-/* Retirado do wikipedia: http://en.wikipedia.org/wiki/Java_hashCode()
+/*
+Retirado do wikipedia: http://en.wikipedia.org/wiki/Java_hashCode()
 
 In the Java programming language, every class implicitly or explicitly provides a hashCode() method, which digests the data stored in an instance of the class into a single hash value (a 32-bit signed integer). 
 This hash is used by other code when storing or manipulating the instance  the values are intended to be evenly distributed for varied inputs in order to use in clustering. 
