@@ -58,10 +58,10 @@ unsigned int n_of_docs = 0;
                              free(current);
                            }
 
-<docs>"@author "[^\n]*\n   { BEGIN(INITIAL); printf("Ola");
+<docs>"@author ".*$        { BEGIN(INITIAL); printf("Ola");
                              dcomment -> author  = strdup(yytext + 8); }
 
-<docs>"@version "[^\n]*\n  { BEGIN(INITIAL); 
+<docs>"@version ".*$       { BEGIN(INITIAL); 
                              dcomment -> version = strdup(yytext + 9); }
 
 <docs>[^\*]*               { current = str_append(current, yytext);}
