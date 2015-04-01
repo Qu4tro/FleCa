@@ -13,6 +13,9 @@ typedef struct node_ll_docs{
     docs_comment         comment;
 } docs_ll;
 
+void print_comment(docs_comment* c);
+
+void print_comments(docs_ll* linked_list);
 
 void append_docs(docs_ll** linked_list, docs_comment* c);
 

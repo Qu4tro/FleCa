@@ -1,5 +1,20 @@
 #include "docs_struts.h"
 
+void print_comment(docs_comment* c){
+
+    /* printf("Autor: %s\n", c -> author); */
+    /* printf("Versão %s\n", c -> version); */
+    /* printf("Comentários: \n%s\n", c -> string); */
+
+}
+
+void print_comments(docs_ll* linked_list){
+    docs_comment *c;
+    while ((c = pop_docs(&linked_list)) != NULL){
+        print_comment(c);
+    }
+}
+
 void append_docs(docs_ll** linked_list, docs_comment* c){
 
     if (*linked_list == NULL){
