@@ -1,0 +1,170 @@
+********************<!DOCTYPE html>
+<html lang="pt">
+
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<title>FleCa - Flex Comment Analyser</title>
+		<meta name="Author" content="Célia Natália, Tiago Cunha e Xavier Francisco">
+		<meta name="Description" content="FleCa é um analisador de comentários tipo-Java feita por um filtro de texto Flex.">
+		<meta name="Keywords" content="fleca, analisador, comentaários, linux, unix">
+		<meta name="viewport" content="initial-scale=1">
+		<link rel="stylesheet" href="https://cmus.github.io/reset-min.css">
+		<link rel="stylesheet" href="https://cmus.github.io/fonts-min.css">
+		<link rel="stylesheet" href="https://cmus.github.io/modern.css">
+		<link rel="alternate" type="application/atom+xml" href="https://github.com/cmus/cmus/commits/master.atom" title="cmus project updates">
+		<style type="text/css" media="screen">
+
+			code {
+				font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+				font-size: 95%;
+				color: #999999;
+				line-height: 100%;
+				white-space: pre;
+				white-space: pre-wrap;
+				white-space: -moz-pre-wrap;
+				white-space: -o-pre-wrap;
+				background: #181818;
+				}
+
+				#content code {
+				display: block;
+				padding: 0.5em 1em;
+				border: 1px solid #bebab0;
+				}
+
+				ul.navbar{
+				font-family: "linux biolinum o", "linux libertine", "times new roman", "liberation serif", serif;
+				color: #999999;
+				line-height: 300%;
+				font-size: 1.2em;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				margin: 0;
+				margin-top: 20px;
+				padding-bottom: 0.5em;
+				border-bottom: 2px solid #9ea191;
+				}
+
+			a:visited {
+				color: #666666;
+			}
+			a:link {
+				color: #666666;
+			}
+
+		</style>
+	</head>
+	<body>
+		<center>
+			<img src="https://i.imgur.com/pDiqAGa.png" alt="logotype of FleCa"/> 
+		</center>
+
+		<ul id="navbar">
+			<li><a href="#home">Home</a></li>
+			<li><a href="#inline">Comentários inline</a></li>
+			<li><a href="#bloco">Comentários de bloco</a></li>
+			<li><a href="#docs">Comentários de documentação</a></li>
+		</ul>
+
+		<div id="content">
+			<h2 id="home" style="display: block;"></h2>
+			<div class="chapter" style="display: block;">
+				<div class="tagline">FleCa é um analisador de comentários tipo-Java feita por um filtro de texto <em>Flex</em>.</div>
+				<img class="screenshot" alt="java screenshot" title="java source example" src="https://imgur.com/78e9F0t.png">
+				<div class="tagline">O ficheiro foi analisado e foram encontrados 3 comentários inline, 2 comentários em bloco e 4 comentários de documentação.</div>
+			</div>
+			<h2 id="inline" style="display: none;">Comentários Inline</h2>
+			<div class="chapter" style="display: none;">
+				<br>Linha 24:<br>
+				<code>            return Math.sqrt(Math.pow(this.x - p.getX(), 2) + Math.pow(this.y - p.getY(), 2)); // Fórmula da distância</code><br>
+				<br>Linha 50:<br>
+				<code>            return "(" + this.x + ", " + this.y + ")"; // A representação de um ponto é: "(x, y)"</code><br>
+				<br>Linha 54:<br>
+				<code>            if (this == o){ // Se a referência é a mesma, as instâncias são a mesmo</code><br>
+			</div>
+			<h2 id="bloco" style="display: none;">Comentários em Bloco</h2>
+			<div class="chapter" style="display: none;">
+				<br>Linha 57-60 : Comentário em <em>Português</em><br>
+				<code>
+ 
+Se as classes forem diferentes, então as instâncias são diferentes
+Se o "o" for null também é diferente, porque tudo é diferente de null em Java.
+            				</code>
+				<br>Linha 70-77 : Comentário em <em>Inglês</em><br>
+				<code>
+
+Retirado do wikipedia: http://en.wikipedia.org/wiki/Java_hashCode()
+
+In the Java programming language, every class implicitly or explicitly provides a hashCode() method, which digests the data stored in an instance of the class into a single hash value (a 32-bit signed integer). 
+This hash is used by other code when storing or manipulating the instance  the values are intended to be evenly distributed for varied inputs in order to use in clustering. 
+This property is important to the performance of hash tables and other data structures that store objects in groups ("buckets") based on their computed hash values. 
+Technically, in Java, hashCode() by default is a native method, meaning, it has the modifier 'native', as it is implemented directly in the native code in the JVM.
+				</code>
+			</div>
+			<h2 id="docs" style="display: none;">Comentários de Documentação</h2>
+			<div class="chapter" style="display: none;">
+				<ul class="navbar">
+					<li><a href="#docs_author">Comentários por autor</a></li>
+					<li><a href="#docs_version">Comentários por versão</a></li>
+				</ul>
+			</div>
+			<h2 id="docs_author" style="display: none;">Comentários de Documentação - Por autor</h2>
+			<div class="chapter" style="display: none;">
+				<br>
+				Por XavierFrancisco.
+				<code>
+/**  <br>
+*   @author XavierFrancisco <br>
+*   @param x value of x <br>
+*   @return y <br>
+*   @see "Math" <br>
+*   @version version1 <br>
+*/ <br>
+				</code>
+
+				Por CéliaNatália.
+				<code>
+/**  <br>
+*   @author CéliaNatália <br>
+*   @param y value of y <br>
+*   @return x <br>
+*   @see "Math" <br>
+*   @version version2 <br>
+*/ <br>
+			</code>
+
+			</div>			<h2 id="docs_version" style="display: none;">Comentários de Documentação - Por versão.</h2>
+			<div class="chapter" style="display: none;">
+				<br>
+				Versão 1.
+				<code>
+/**  <br>
+*   @author XavierFrancisco <br>
+*   @param x value of x <br>
+*   @return y <br>
+*   @see "Math" <br>
+*   @version version1 <br>
+*/ <br>
+				</code>
+
+				Versão 2.
+				<code>
+/**  <br>
+*   @author CéliaNatália <br>
+*   @param y value of y <br>
+*   @return x <br>
+*   @see "Math" <br>
+*   @version version2 <br>
+*/ <br>
+			</code>
+
+			</div>		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script src="https://cmus.github.io/modern.js"></script>
+
+	</body>
+
+</html>
