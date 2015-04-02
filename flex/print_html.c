@@ -20,9 +20,9 @@ void print_head(){
 
             "\t\t\tcode {\n"
                 "\t\t\t\tfont-family: Monaco, Consolas, \"Andale Mono\", \"DejaVu Sans Mono\", monospace;\n"
-                "\t\t\t\tfont-size: 95%;\n"
+                "\t\t\t\tfont-size: 95%%;\n"
                 "\t\t\t\tcolor: #999999;\n"
-                "\t\t\t\tline-height: 100%;\n"
+                "\t\t\t\tline-height: 100%%;\n"
                 "\t\t\t\twhite-space: pre;\n"
                 "\t\t\t\twhite-space: pre-wrap;\n"
                 "\t\t\t\twhite-space: -moz-pre-wrap;\n"
@@ -39,7 +39,7 @@ void print_head(){
             "\t\t\t\tul.navbar{\n"
                 "\t\t\t\tfont-family: \"linux biolinum o\", \"linux libertine\", \"times new roman\", \"liberation serif\", serif;\n"
                 "\t\t\t\tcolor: #999999;\n"
-                "\t\t\t\tline-height: 300%;\n"
+                "\t\t\t\tline-height: 300%%;\n"
                 "\t\t\t\tfont-size: 1.2em;\n"
                 "\t\t\t\tletter-spacing: 1px;\n"
                 "\t\t\t\ttext-transform: uppercase;\n"
@@ -148,18 +148,16 @@ void print_documenting_comments_per_author_chapter(docs_ll* docs_linked_list){
 
                 "\t\t\t\t<br>\n"); 
 
-    while (0){
-        docs_comment *c;
-        docs_ll* ll = sort_by_authors(docs_linked_list);
+    docs_comment *c;
+    docs_ll* ll = sort_by_authors(docs_linked_list);
 
-        while ((c = pop_docs(&ll)) != NULL){
+    while ((c = pop_docs(&ll)) != NULL){
 
-            printf("\t\t\t\tPor %s.\n"
-                   "\t\t\t\t<code>\n"
-                   "%s"
-                   "\t\t\t\t</code>\n\n", c -> author, 
-                                          c -> string);
-        }
+        printf("\t\t\t\tPor %s.\n"
+               "\t\t\t\t<code>\n"
+               "%s"
+               "\t\t\t\t</code>\n\n", c -> author, 
+                                      c -> string);
     }
 
     printf("\t\t\t</div>");
@@ -174,18 +172,16 @@ void print_documenting_comments_per_version_chapter(docs_ll* docs_linked_list){
 
                 "\t\t\t\t<br>\n"); 
 
-    while (0){
-        docs_comment *c;
-        docs_ll* ll = sort_by_version(docs_linked_list);
+    docs_comment *c;
+    docs_ll* ll = sort_by_version(docs_linked_list);
 
-        while ((c = pop_docs(&ll)) != NULL){
+    while ((c = pop_docs(&ll)) != NULL){
 
-            printf("\t\t\t\tVersão %s.\n"
-                   "\t\t\t\t<code>\n"
-                   "%s"
-                   "\t\t\t\t</code>\n\n", c -> version, 
-                                          c -> string);
-        }
+        printf("\t\t\t\tVersão %s.\n"
+               "\t\t\t\t<code>\n"
+               "%s"
+               "\t\t\t\t</code>\n\n", c -> version, 
+                                      c -> string);
     }
 
     printf("\t\t\t</div>");

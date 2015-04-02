@@ -44,7 +44,7 @@ unsigned int n_of_docs = 0;
 
   /* First regex to match comments. In this case documentating comments. */
 
-\/[\*]{2,}                 { BEGIN(docs); 
+\/\*{2,}                   { BEGIN(docs); 
                              n_of_docs++;
                              dcomment = malloc(sizeof(docs_comment));
                              current = NULL;
@@ -53,18 +53,16 @@ unsigned int n_of_docs = 0;
 <docs>\*\/                 { BEGIN(INITIAL);
                              dcomment -> string = strdup(current);
                              append_docs(&docs_linked_list, dcomment);
-                             print_comment(dcomment);
+                             /* print_comment(dcomment); */
                              free(dcomment);
                              free(current);
                            }
 
-<docs>"@author ".*$        { BEGIN(INITIAL); printf("Ola");
-                             dcomment -> author  = strdup(yytext + 8); }
+<docs>"@author ".*\n       { dcomment -> author  = strdup(yytext + 8);}
 
-<docs>"@version ".*$       { BEGIN(INITIAL); 
-                             dcomment -> version = strdup(yytext + 9); }
+<docs>"@version ".*\n      { dcomment -> version = strdup(yytext + 9); }
 
-<docs>[^\*]*               { current = str_append(current, yytext);}
+<docs>.|\n                 { current = str_append(current, yytext);}
 
 
 \/\*                       { BEGIN(block); 
@@ -113,7 +111,6 @@ int main(){
     
     yylex();
     
-    docs_linked_list = NULL;
     print_html(inline_linked_list, n_of_inlines, blocks_linked_list, n_of_blocks, docs_linked_list, n_of_docs);
 
     return 0;

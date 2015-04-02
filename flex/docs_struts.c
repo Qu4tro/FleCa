@@ -2,9 +2,9 @@
 
 void print_comment(docs_comment* c){
 
-    /* printf("Autor: %s\n", c -> author); */
-    /* printf("Versão %s\n", c -> version); */
-    /* printf("Comentários: \n%s\n", c -> string); */
+    printf("Autor: %s\n", c -> author);
+    printf("Versão %s\n", c -> version);
+    printf("Comentários: \n%s\n", c -> string);
 
 }
 
@@ -47,6 +47,7 @@ docs_comment* pop_docs(docs_ll** linked_list){
 }
 
 int cmp_by_authors(docs_comment* c1, docs_comment* c2){
+
     return strcmp(c1 -> author, c2 -> author);
 }
 
@@ -55,9 +56,9 @@ void insert_by_authors(docs_ll** linked_list, docs_comment* c){
 
     docs_ll* new_node;
 
-    if (*linked_list == NULL || (*linked_list) -> next == NULL){
+    if (linked_list == NULL || (*linked_list) -> next == NULL){
         append_docs(linked_list, c);
-    } else if (cmp_by_authors((&((*linked_list) -> next) -> comment), c) > 0){
+    } else if (cmp_by_authors((&((*linked_list) -> next -> comment)), c) > 0){
         new_node = malloc(sizeof(docs_ll));
         new_node -> comment = *c;
         new_node -> next = (*linked_list) -> next;
@@ -65,6 +66,12 @@ void insert_by_authors(docs_ll** linked_list, docs_comment* c){
     } else {
         insert_by_authors(&((*linked_list) -> next), c);
     }
+
+    fflush(stdout);
+    print_comment(c);
+    fflush(stdout);
+
+
 }
 
 docs_ll* sort_by_authors(docs_ll* linked_list){
