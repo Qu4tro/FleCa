@@ -57,9 +57,11 @@ unsigned int n_of_docs = 0;
                              free(current);
                            }
 
-<docs>"@author ".*\n       { dcomment -> author  = strdup(yytext + 8);}
+<docs>"@author ".*\n       { dcomment -> author  = strdup(yytext + 8); 
+                             current = str_append(current, yytext); }
 
-<docs>"@version ".*\n      { dcomment -> version = strdup(yytext + 9); }
+<docs>"@version ".*\n      { dcomment -> version = strdup(yytext + 9); 
+                             current = str_append(current, yytext); }
 
 <docs>.|\n                 { current = str_append(current, yytext);}
 
