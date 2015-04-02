@@ -53,7 +53,6 @@ unsigned int n_of_docs = 0;
 <docs>\*\/                 { BEGIN(INITIAL);
                              dcomment -> string = strdup(current);
                              append_docs(&docs_linked_list, dcomment);
-                             /* print_comment(dcomment); */
                              free(dcomment);
                              free(current);
                            }

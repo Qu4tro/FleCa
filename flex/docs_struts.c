@@ -46,76 +46,72 @@ docs_comment* pop_docs(docs_ll** linked_list){
     return c;
 }
 
-int cmp_by_authors(docs_comment* c1, docs_comment* c2){
 
-    return strcmp(c1 -> author, c2 -> author);
+int cmp_by_authors(docs_comment* c1, docs_comment* c2){
+    return strcmp(c1->author, c2->author);
 }
 
-
-void insert_by_authors(docs_ll** linked_list, docs_comment* c){
-
+void insert_by_authors(docs_ll** lt, docs_comment* c){
     docs_ll* new_node;
 
-    if (linked_list == NULL || (*linked_list) -> next == NULL){
-        append_docs(linked_list, c);
-    } else if (cmp_by_authors((&((*linked_list) -> next -> comment)), c) > 0){
-        new_node = malloc(sizeof(docs_ll));
-        new_node -> comment = *c;
-        new_node -> next = (*linked_list) -> next;
-        (*linked_list) -> next = new_node;
+    if(*lt == NULL || (*lt)->next == NULL) {
+        append_docs(lt, c);
     } else {
-        insert_by_authors(&((*linked_list) -> next), c);
+        if(cmp_by_authors(&(*lt)->next->comment, c) > 0) {
+            new_node = malloc(sizeof(docs_ll));
+            new_node->comment = *c;
+            new_node->next = (*lt)->next;
+            (*lt)->next = new_node;
+        } else {
+            insert_by_authors(&(*lt)->next, c);
+        }
     }
-
-    fflush(stdout);
-    print_comment(c);
-    fflush(stdout);
-
 
 }
 
-docs_ll* sort_by_authors(docs_ll* linked_list){
-
-    docs_ll* temp_ll;
-    docs_comment* c;
-    
-    while ((c = pop_docs(&linked_list)) != NULL){
-        insert_by_authors(&temp_ll, c);
+docs_ll* sort_by_authors(docs_ll* ll){
+    docs_ll* aux = ll; //LISTA LIGADA AUXILIAR
+    docs_ll* temp = NULL; //Lista LIGADA PARA ORD
+  
+    while(aux){
+        insert_by_authors(&temp,&aux->comment);
+        aux = aux -> next;
     }
 
-    return temp_ll;
+    return temp;
 }
+
 
 int cmp_by_version(docs_comment* c1, docs_comment* c2){
     return strcmp(c1 -> version, c2 -> version);
 }
 
-void insert_by_version(docs_ll** linked_list, docs_comment* c){
-
+void insert_by_version(docs_ll** lt, docs_comment* c){
     docs_ll* new_node;
 
-    if (*linked_list == NULL || (*linked_list) -> next == NULL){
-        append_docs(linked_list, c);
-    } else if (cmp_by_version((&((*linked_list) -> next) -> comment), c) > 0){
-        new_node = malloc(sizeof(docs_ll));
-        new_node -> comment = *c;
-        new_node -> next = (*linked_list) -> next;
-        (*linked_list) -> next = new_node;
+    if(*lt == NULL || (*lt) -> next == NULL) {
+        append_docs(lt, c);
     } else {
-        insert_by_version(&((*linked_list) -> next), c);
-    }
-}
-
-docs_ll* sort_by_version (docs_ll* linked_list){
-
-    docs_ll* temp_ll;
-    docs_comment* c;
-    
-    while ((c = pop_docs(&linked_list)) != NULL){
-        insert_by_version(&temp_ll, c);
+        if (cmp_by_version(&(*lt)->next->comment, c) > 0) {
+            new_node = malloc(sizeof(docs_ll));
+            new_node->comment = *c;
+            new_node->next = (*lt) -> next;
+            (*lt) -> next = new_node;
+        } else {
+            insert_by_version(&(*lt) -> next, c);
+        }
     }
 
-    return temp_ll;
 }
 
+docs_ll* sort_by_version(docs_ll* ll){
+    docs_ll* aux = ll; 
+    docs_ll* temp = NULL; 
+  
+    while(aux){
+        insert_by_version(&temp, &aux -> comment);
+        aux = aux -> next;
+    }
 
+    return temp;
+}
